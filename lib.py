@@ -18,32 +18,31 @@ def get_realization(notes: list[note.Note]) -> tuple:
     '''
     returns a tuple of notes sequence features
 
-    (diatonic intervals, chromatic intervals, contour, ratio of notes duration)
+    (diatonic intervals, chromatic intervals, contour, rhytmic value)
     '''
     di = []
     ci = []
     co = []
-    rd = []
+    rv = []
     for i in range(len(notes) - 1):
+        inter = interval.Interval(notes[i], notes[i+1])
+
         # Chromatic interval
-        di.append(
-            interval.Interval(notes[i], notes[i+1]).generic.staffDistance
-        )
+        di.append(inter.generic.staffDistance)
 
         # Diatonic interval
-        ci.append(
-            interval.Interval(notes[i], notes[i+1]).semitones
-        )
+        ci.append(inter.semitones)
 
         # Contour
-        co.append(
-            interval.Interval(notes[i], notes[i+1]).diatonic.direction
-        )
+        co.append(inter.diatonic.direction.value)
 
-        # Ratio of duration
+        # Rhytmic value
+        rv.append(notes[i].duration.quarterLength)
 
+    # get the last note's rhytmic value
+    rv.append(notes[-1].duration.quarterLength)
 
-    return (ci, di, co, rd)
+    return (ci, di, co, rv)
  
 def realization_similiarity(r1: tuple, r2: tuple) -> float:
     '''
