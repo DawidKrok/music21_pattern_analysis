@@ -13,8 +13,8 @@ l = [note.Note("A2"), note.Note("A#2", type="16th"), note.Note("C2", type="half"
 l2 = [note.Note("A#2"), note.Note("A#2", type="16th"), note.Note("C2"), note.Note("G#2", type="half"), note.Note("G#2"), note.Note("F2", type="eighth"), note.Note("G2")]
 r = Realization(l)
 r2 = Realization(l2)
-print(r2.chromatic_interval, r.diatonic_interval, r.contour, r.rhytmic_values)
-print(r.chromatic_interval, r.diatonic_interval, r.contour, r.rhytmic_values)
+print(r2.chromatic_interval, r.diatonic_interval, r.contour, r.rhytmic_ratio)
+print(r.chromatic_interval, r.diatonic_interval, r.contour, r.rhytmic_ratio)
 
 s = stream.Stream(l)
 # s.show()

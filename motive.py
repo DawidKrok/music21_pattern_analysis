@@ -8,12 +8,16 @@ How similiar two realizaitons must be to be included in a motive ( `range<0, 2>`
 B_PARAM = 1.5
 
 
-def get_motive(s: stream.Stream, k: int) -> list[tuple]:
+def get_motive(s: stream.Stream, k: int) -> list[Realization]:
     '''
     Goes trough the whole `Stream` (musical score) and makes a set of realizations of length `k`.
     Only the realizations that are similiar enough between each other (similiarity score stronger than `B_PARAM`) are included.
     '''
-    pass
+    l = []
+
+    
+
+    return l
 
 def motive_similiarity(m1: list[tuple], m2: list[tuple]) -> float:
     '''
