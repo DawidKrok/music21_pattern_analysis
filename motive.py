@@ -1,6 +1,13 @@
 from music21 import *
 from realization import *
 
+
+'''
+How similiar two realizaitons must be to be included in a motive ( `range<0, 2>` )
+'''
+B_PARAM = 1.5
+
+
 def get_motive(s: stream.Stream, k: int) -> list[tuple]:
     '''
     Goes trough the whole `Stream` (musical score) and makes a set of realizations of length `k`.
