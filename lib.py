@@ -26,14 +26,19 @@ def get_realization(notes: list[note.Note]) -> tuple:
     rd = []
     for i in range(len(notes) - 1):
         # Chromatic interval
-        di.append(notes[i+1].octave - notes[i].octave)
-        
+        di.append(
+            interval.Interval(notes[i], notes[i+1]).generic.staffDistance
+        )
+
         # Diatonic interval
         ci.append(
             interval.Interval(notes[i], notes[i+1]).semitones
         )
 
         # Contour
+        co.append(
+            interval.Interval(notes[i], notes[i+1]).diatonic.direction
+        )
 
         # Ratio of duration
 

@@ -1,7 +1,7 @@
 from lib import *
 from music21 import *
 
-l = [note.Note("A2"), note.Note("B2"), note.Note("C2"), note.Note("D2"), note.Note("E2"), note.Note("F2"), note.Note("G2")]
+l = [note.Note("A2"), note.Note("A#2"), note.Note("C2"), note.Note("G#2"), note.Note("E2"), note.Note("F2"), note.Note("G2")]
 r = get_realization(l)
 print(r)
 
