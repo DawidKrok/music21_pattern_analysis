@@ -14,13 +14,31 @@ How similiar two realizaitons must be to be included in a motive ( `range<0, 2>`
 '''
 B_PARAM = 1.5
 
-def get_realization(s: list[note.Note]) -> tuple:
+def get_realization(notes: list[note.Note]) -> tuple:
     '''
     returns a tuple of notes sequence features
 
-    (chromatic intervals, diatonic intervals, contour, notes duration(?), rhythm)
+    (diatonic intervals, chromatic intervals, contour, ratio of notes duration)
     '''
-    pass
+    di = []
+    ci = []
+    co = []
+    rd = []
+    for i in range(len(notes) - 1):
+        # Chromatic interval
+        di.append(notes[i+1].octave - notes[i].octave)
+        
+        # Diatonic interval
+        ci.append(
+            interval.Interval(notes[i], notes[i+1]).semitones
+        )
+
+        # Contour
+
+        # Ratio of duration
+
+
+    return (ci, di, co, rd)
  
 def realization_similiarity(r1: tuple, r2: tuple) -> float:
     '''
