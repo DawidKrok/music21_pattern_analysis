@@ -29,6 +29,11 @@ class Realization:
             # Rhytmic ratio
             self.rhytmic_ratio.append(notes[i].duration.quarterLength / notes[i+1].duration.quarterLength)
 
+    def __eq__(self, other: 'Realization') -> bool:
+        return (self.diatonic_interval == other.diatonic_interval)  and \
+            (self.chromatic_interval == other.chromatic_interval)   and \
+            (self.contour == other.contour)                         and \
+            (self.rhytmic_ratio == other.rhytmic_ratio) 
 
 def realization_similiarity(r1: Realization, r2: Realization) -> float:
     '''
