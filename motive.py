@@ -1,6 +1,5 @@
 from music21 import *
 from realization import *
-import itertools
 
 '''
 How similiar two realizaitons must be to be included in a motive ( `range<0, 2>` )
@@ -65,10 +64,20 @@ def get_composition(s: stream.Stream) -> list[list[Realization]]:
 
 def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realization]]) -> float:
     '''
-    Arithmetic sum of motives similiarity, but only the best ones
+    Arithmetic sum of motives similiarity
 
-    TODO: Compute similiarities of all motives beforehand and include the best one from each column/row?
-    It should maximize the similiarity output keeping the constraint:
-    Each motive has only one best fitted motive from the other composition (compared between motives of the same length)
+    There were supposed to be some v_matrix that filters only the best motives matches, 
+    but for each k there's only one motive to match, so dunno what was meant by that
     '''
-    pass
+
+    similiarity = 0
+
+    # Normally never gonna happen, but just in case 
+    if len(c1) != len(c2): return 0
+
+    # go trough all k lenghts
+    for k in range(len(c1)):
+        similiarity += motive_similiarity(c1[k], c2[k])
+
+    return similiarity
+    

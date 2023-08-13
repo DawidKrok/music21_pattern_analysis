@@ -9,7 +9,7 @@ import time
 
 ### REALIZATION - Tuple with features of notes sequence of length k
 ### MOTIVE      - Set of similiar realizations of length k
-### COMPOSITION - Set of motives in a score with different lengths k
+### COMPOSITION - Set of motives in a score with different lengths k ( range<2;7> )
 
 print("wait...")
 t = time.time() 
@@ -19,5 +19,7 @@ s2= corpus.parse("bwv256")
 
 c = get_composition(s)
 c2 = get_composition(s2)
+
+print(composition_similiarity(c, c2))
 
 print("done in", time.time() - t, "seconds")
