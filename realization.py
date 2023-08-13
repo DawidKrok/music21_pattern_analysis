@@ -35,6 +35,9 @@ class Realization:
             (self.contour == other.contour)                         and \
             (self.rhytmic_ratio == other.rhytmic_ratio) 
 
+    def __len__(self):
+        return len(self.chromatic_interval)
+
 def realization_similiarity(r1: Realization, r2: Realization) -> float:
     '''
     Computes similiarity coefficient of two realizations (should be the same length)
@@ -43,9 +46,9 @@ def realization_similiarity(r1: Realization, r2: Realization) -> float:
     '''
     similiarity = 0.
     # The shorter length is used as all similiarity scoring is done on values that are relative to their consecutive notes
-    k = len(r1.chromatic_interval)
+    k = len(r1)
     
-    if k != len(r2.chromatic_interval): raise Exception("Realizations have different lenghts")
+    if k != len(r2): raise Exception("Realizations have different lenghts")
 
     for i in range(k):
         if r1.rhytmic_ratio[i] == r2.rhytmic_ratio[i]:  similiarity += 1.
