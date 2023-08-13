@@ -16,8 +16,11 @@ r = Realization(l)
 r2 = Realization(l2)
 
 s = corpus.parse("bwv57.8")
+s2= corpus.parse("bwv256")
 # s.show()
-k=5
+k=4
 
-print(get_motive(s, k))
+m = get_motive(s, k)
+m2 = get_motive(s2, k)
 # print(realization_similiarity(r, r2))
+print(motive_similiarity(m, m2))

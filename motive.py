@@ -22,11 +22,14 @@ def get_motive(s: stream.Stream, k: int) -> list[Realization]:
                 type(n) == note.Note
             , notes))
 
+    # get all realizations of length k
     for i in range(len(notes) - k + 1):
         reals.append(Realization(notes[i:i+k]))
-    # if score == 2 we shall discard a realization as an equal realization already exists and a copy would misrepresent the final similiarity
+    
+    # get all the possible pairs of realizations
     pairs = [(a, b) for idx, a in enumerate(reals) for b in reals[idx + 1:]]
 
+    # filter those pairs based on B_PARAM. Exclude duplicates
     for pair in pairs:
         if realization_similiarity(*pair) >= B_PARAM:
             if pair[0] not in motive: motive.append(pair[0])
@@ -38,7 +41,16 @@ def motive_similiarity(m1: list[Realization], m2: list[Realization]) -> float:
     '''
     Computes ratio of identical realizations to all realizations in both motives  (Jaccard's coefficient) 
     '''
-    pass
+    if len(m1) == 0 or len(m2) == 0:  return 0
+    if len(m1[0]) != len(m2[0]):    raise Exception("Motives have different lengths")
+
+    # count how many exactly equal Realizations are between two motives
+    equals = 0
+    for r1 in m1:
+        for r2 in m2:
+            if r1 == r2: equals+=1
+
+    return equals / (len(m1) + len(m2) - equals)
 
 def get_composition(s: stream.Stream) -> list[list[tuple]]:
     '''
