@@ -52,13 +52,18 @@ def motive_similiarity(m1: list[Realization], m2: list[Realization]) -> float:
 
     return equals / (len(m1) + len(m2) - equals)
 
-def get_composition(s: stream.Stream) -> list[list[tuple]]:
+def get_composition(s: stream.Stream) -> list[list[Realization]]:
     '''
     Makes a set of motives of different lenghts (2 to 7) out of given `Stream` (musical score)
     '''
-    pass
+    c = []
 
-def composition_similiarity(c1: list[list[tuple]], c2: list[list[tuple]]) -> float:
+    for k in range(2, 8):
+        c.append(get_motive(s, k))
+
+    return c
+
+def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realization]]) -> float:
     '''
     Arithmetic sum of motives similiarity, but only the best ones
 
