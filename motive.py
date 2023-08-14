@@ -1,5 +1,8 @@
 from music21 import *
 from realization import *
+from scipy.cluster.hierarchy import dendrogram, linkage
+import numpy as np
+import matplotlib.pyplot as plt
 
 '''
 How similiar two realizaitons must be to be included in a motive ( `range<0, 2>` )
@@ -82,3 +85,17 @@ def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realizati
 
     return similiarity
 
+
+def show_dendrograf(compositions: list[list[list[Realization]]]):
+    X: list[list[float]] = []
+    for c1 in compositions:
+        X.append([])
+        for c2 in compositions:
+            X[-1].append(composition_similiarity(c1, c2))
+
+    Z = linkage(X)
+    print(X, Z)
+    fig = plt.figure(figsize=(15, 10))
+    dn = dendrogram(Z)
+
+    fig.show()

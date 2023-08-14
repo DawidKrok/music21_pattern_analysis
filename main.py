@@ -2,6 +2,7 @@ from realization import *
 from music21 import *
 from motive  import *
 import time
+import os
 
 ###   ===== WHEN RUNNING FOR THE FIRST TIME =====   ###
 # configure.run()
@@ -14,12 +15,10 @@ import time
 print("wait...")
 t = time.time() 
 
-s = corpus.parse("bwv57.8")
-s2= corpus.parse("bwv256")
+compositions = [ get_composition(converter.parse("xmls/" + s)) for s in os.listdir("xlms") ]
 
-c = get_composition(s)
-c2 = get_composition(s2)
 
-print(composition_similiarity(c, c2))
+show_dendrograf(compositions)
 
 print("done in", time.time() - t, "seconds")
+input()
