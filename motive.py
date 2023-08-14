@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 '''
 How similiar two realizaitons must be to be included in a motive ( `range<0, 2>` )
 '''
-B_PARAM = 1.3
+B_PARAM = 1.5
 
 
 def get_motive(notes: list[note.Note], k: int) -> list[Realization]:
     '''
-    Goes trough the whole `Stream` (musical score) and makes a set of realizations of length `k`.
+    Goes trough the list of notes from a `Stream` (musical score) and makes a set of realizations of length `k`.
     Only the realizations that are similiar enough between each other (similiarity score stronger than `B_PARAM`) are included.
     '''
     reals = []  # all Realizations of length k in given Stream s
@@ -22,7 +22,7 @@ def get_motive(notes: list[note.Note], k: int) -> list[Realization]:
     # get all realizations of length k
     for i in range(len(notes) - k + 1):
         reals.append(Realization(notes[i:i+k]))
-    
+
     # get all the possible pairs of realizations
     pairs = [(a, b) for idx, a in enumerate(reals) for b in reals[idx + 1:]]
 
@@ -55,12 +55,12 @@ def get_composition(s: stream.Stream) -> list[list[Realization]]:
     '''
     c = []
     # get rid of all the wrappers around notes
-    notes = s.flatten()
+    notes = list(s.flatten().notes)
     notes = list(filter(lambda n: 
                 type(n) == note.Note and n.duration.quarterLength != 0
             , notes))
 
-    print(len(notes))
+    print("Notes in composition:", len(notes))
     for k in range(2, 7):
         c.append(get_motive(notes, k))
 
@@ -86,15 +86,18 @@ def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realizati
     return similiarity
 
 
-def show_dendrograf(compositions: list[list[list[Realization]]]):
+def show_dendrogram(compositions: list[list[list[Realization]]]):
+    # Make a matrix with similiarity scores between each composition (1 if it's the same composition, so it wouldn't have too big distances between each other)
     X: list[list[float]] = []
-    for c1 in compositions:
+    for i in range(len(compositions)):
         X.append([])
-        for c2 in compositions:
-            X[-1].append(composition_similiarity(c1, c2))
+        for j in range(len(compositions)):
+            if i == j:
+                X[-1].append(1)
+                continue
+            X[-1].append(composition_similiarity(compositions[i], compositions[j]))
 
     Z = linkage(X)
-    print(X, Z)
     fig = plt.figure(figsize=(15, 10))
     dn = dendrogram(Z)
 
