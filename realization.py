@@ -27,7 +27,11 @@ class Realization:
             self.contour.append(inter.diatonic.direction.value)
 
             # Rhytmic ratio
-            self.rhytmic_ratio.append(notes[i].duration.quarterLength / notes[i+1].duration.quarterLength)
+            if notes[i+1].duration.quarterLength == 0:
+                print(notes[i+1].duration)
+                self.rhytmic_ratio.append(128)
+            else:
+                self.rhytmic_ratio.append(notes[i].duration.quarterLength / notes[i+1].duration.quarterLength)
 
     def __eq__(self, other: 'Realization') -> bool:
         return (self.diatonic_interval == other.diatonic_interval)  and \

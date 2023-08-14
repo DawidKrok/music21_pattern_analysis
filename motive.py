@@ -7,7 +7,7 @@ How similiar two realizaitons must be to be included in a motive ( `range<0, 2>`
 B_PARAM = 1.3
 
 
-def get_motive(s: stream.Stream, k: int) -> list[Realization]:
+def get_motive(notes: list[note.Note], k: int) -> list[Realization]:
     '''
     Goes trough the whole `Stream` (musical score) and makes a set of realizations of length `k`.
     Only the realizations that are similiar enough between each other (similiarity score stronger than `B_PARAM`) are included.
@@ -15,11 +15,6 @@ def get_motive(s: stream.Stream, k: int) -> list[Realization]:
     reals = []  # all Realizations of length k in given Stream s
     motive = [] # all Realizations that are similiar to any other realization with score greater than B_PARAM
 
-    # get rid of all the wrappers around notes
-    notes = s.flatten()
-    notes = list(filter(lambda n: 
-                type(n) == note.Note
-            , notes))
 
     # get all realizations of length k
     for i in range(len(notes) - k + 1):
@@ -56,9 +51,15 @@ def get_composition(s: stream.Stream) -> list[list[Realization]]:
     Makes a set of motives of different lenghts (2 to 7) out of given `Stream` (musical score)
     '''
     c = []
+    # get rid of all the wrappers around notes
+    notes = s.flatten()
+    notes = list(filter(lambda n: 
+                type(n) == note.Note and n.duration.quarterLength != 0
+            , notes))
 
-    for k in range(2, 8):
-        c.append(get_motive(s, k))
+    print(len(notes))
+    for k in range(2, 7):
+        c.append(get_motive(notes, k))
 
     return c
 
@@ -80,4 +81,4 @@ def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realizati
         similiarity += motive_similiarity(c1[k], c2[k])
 
     return similiarity
-    
+
