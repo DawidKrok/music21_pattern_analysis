@@ -99,6 +99,6 @@ def show_dendrogram(compositions: list[list[list[Realization]]], labels: list):
 
     Z = linkage(X)
     fig = plt.figure(figsize=(15, 10))
-    dn = dendrogram(Z, labels=labels)
+    dn = dendrogram(Z, labels=labels, leaf_rotation=60)
 
     fig.show()
