@@ -16,11 +16,12 @@ print("wait...")
 t = time.time() 
 
 compositions = [ get_composition(converter.parse("xmls/" + s)) for s in os.listdir("xmls") ]
+labels = [ s[:-4] for s in os.listdir("xmls") ]
 
 print("done in", time.time() - t, "seconds")
 t = time.time()
 print("\nmaking dendrogram...")
-show_dendrogram(compositions)
+show_dendrogram(compositions, labels)
 
 print("done in", time.time() - t, "seconds")
 input()

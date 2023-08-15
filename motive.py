@@ -86,7 +86,7 @@ def composition_similiarity(c1: list[list[Realization]], c2: list[list[Realizati
     return similiarity
 
 
-def show_dendrogram(compositions: list[list[list[Realization]]]):
+def show_dendrogram(compositions: list[list[list[Realization]]], labels: list):
     # Make a matrix with similiarity scores between each composition (1 if it's the same composition, so it wouldn't have too big distances between each other)
     X: list[list[float]] = []
     for i in range(len(compositions)):
@@ -99,6 +99,6 @@ def show_dendrogram(compositions: list[list[list[Realization]]]):
 
     Z = linkage(X)
     fig = plt.figure(figsize=(15, 10))
-    dn = dendrogram(Z)
+    dn = dendrogram(Z, labels=labels)
 
     fig.show()
