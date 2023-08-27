@@ -50,7 +50,7 @@ def motive_similiarity(m1: list[Realization], m2: list[Realization]) -> float:
 
     return equals / (len(m1) + len(m2) - equals)
 
-def get_composition(s: stream.Stream) -> list[list[Realization]]:
+def get_composition(s: stream.Stream, name: str) -> list[list[Realization]]:
     '''
     Makes a set of motives of different lenghts (2 to 7) out of given `Stream` (musical score)
     '''
@@ -61,7 +61,7 @@ def get_composition(s: stream.Stream) -> list[list[Realization]]:
                 type(n) == note.Note and n.duration.quarterLength != 0
             , notes))
 
-    print("Notes in composition:", len(notes))
+    print("Notes in composition", name, ":", len(notes))
     for k in range(2, 8):
         c.append(get_motive(notes, k))
 

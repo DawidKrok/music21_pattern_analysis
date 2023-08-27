@@ -15,7 +15,7 @@ import os
 print("wait...")
 t = time.time() 
 
-compositions = [ get_composition(converter.parse("xmls/" + s)) for s in os.listdir("xmls") ]
+compositions = [ get_composition(converter.parse("xmls/" + s), s) for s in os.listdir("xmls") ]
 labels = [ s[:-4] for s in os.listdir("xmls") ]
 
 print("done in", time.time() - t, "seconds")
