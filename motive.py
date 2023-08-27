@@ -32,6 +32,7 @@ def get_motive(notes: list[note.Note], k: int) -> list[Realization]:
             if pair[0] not in motive: motive.append(pair[0])
             if pair[1] not in motive: motive.append(pair[1])
 
+    print("Motive with k =",k,"has length", len(motive))
     return motive
 
 def motive_similiarity(m1: list[Realization], m2: list[Realization]) -> float:
@@ -61,7 +62,7 @@ def get_composition(s: stream.Stream) -> list[list[Realization]]:
             , notes))
 
     print("Notes in composition:", len(notes))
-    for k in range(2, 7):
+    for k in range(2, 8):
         c.append(get_motive(notes, k))
 
     return c
